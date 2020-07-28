@@ -1,3 +1,6 @@
+import { getMeasurement } from './volume_converter.js';
+
+
 export function loadView() {
   loadRecents();
   loadAlphaSearch();
@@ -67,21 +70,47 @@ export function loadCalculator(ingredients) {
   const ingredientCalc = document.createElement('div');
   ingredientCalc.setAttribute('id', 'ingredient-calc');
   sectionTitle.innerHTML = 'Select an ingredient to convert';
-  let calcStr = '<form><select name="ingredient" id="ingredient">';
+  let calcStr = `<form><select name="ingredient" id="ingredient">
+    <option disabled selected value> -- select an option -- </option>
+  `;
       
   ingredients.forEach(ingredient => {
     calcStr += `<option value="${ ingredient.name }">${ ingredient.name }</option>`
   });
 
-  calcStr += '</select>';
+  calcStr += '</select></form>';
 
   calcStr += `
-    
+    <div id="basic-conversions">
+      <span class="muted">Basic Conversions</span>
+      <div>
+        <span id="base-volume">Volume</span>
+        <span id="base-ounces">Ounces</span>
+        <span id="base-grams">Grams</span>
+      </div>
+    </div>
   `;
-
-  calcStr += '</form>';
 
   ingredientCalc.innerHTML = calcStr;
 
   sectionContent.replaceChild(ingredientCalc, alphaSearch);
+
+  
+}
+
+
+export function updateIngredient(ingredientInfo) {
+  const baseVolume = document.getElementById('base-volume');
+  const baseGrams = document.getElementById('base-grams');
+  const baseOunces = document.getElementById('base-ounces');
+
+  if (Number(ingredientInfo.volume)) {
+    baseVolume.innerHTML = getMeasurement(ingredientInfo.volume);
+  }
+  else {
+    baseVolume.innerHTML = ingredientInfo.volume;
+  }
+
+  baseOunces.innerHTML = ingredientInfo.ounces + ' oz';
+  baseGrams.innerHTML = ingredientInfo.grams + ' g';
 }

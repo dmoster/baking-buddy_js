@@ -9,3 +9,14 @@ export function getIngredients(firstLetter) {
 
   loadCalculator(ingredients);
 }
+
+
+export function getIngredientInfo(ingredientName) {
+  let ingredientVolume, ingredientOunces, ingredientGrams;
+
+  const ingredient = ingredientsList.filter(ingredient => {
+    return ingredient.name === ingredientName;
+  });
+
+  return ingredient[0];
+}

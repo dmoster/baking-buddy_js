@@ -36,7 +36,7 @@ const eighthTsp = new Measurement('1/8', 'teaspoon', 'tsp', 0.125);
 // Tablespoons
 const tablespoon = new Measurement('1', 'tablespoon', 'tbsp', 3);
 const threeQuarterTbsp = new Measurement('3/4', 'tablespoon', 'tbsp', 2.25);
-const halfTbsp = new Measurement('1/2', 'tablespoon', 'tbsp', 1.5);
+//const halfTbsp = new Measurement('1/2', 'tablespoon', 'tbsp', 1.5);
 
 // Cups
 const cup = new Measurement('1', 'cup', 'c', 48);
@@ -48,7 +48,7 @@ const quarterCup = new Measurement('1/4', 'cup', 'c', 12);
 const eighthCup = new Measurement('1/8', 'cup', 'c', 6);
 
 
-function getMeasurement(valueInTsp) {
+export function getMeasurement(valueInTsp) {
   let measurementStr = '';
   let numCups = 0;
   let numTbsp = 0;
@@ -108,10 +108,10 @@ function getMeasurement(valueInTsp) {
     measurementStr += threeQuarterTbsp.longName + ' ';
     valueInTsp -= threeQuarterTbsp.valueInTsp;
   }
-  else if (valueInTsp >= halfTbsp.valueInTsp) {
-    measurementStr += halfTbsp.longName + ' ';
-    valueInTsp -= halfTbsp.valueInTsp;
-  }
+  // else if (valueInTsp >= halfTbsp.valueInTsp) {
+  //   measurementStr += halfTbsp.longName + ' ';
+  //   valueInTsp -= halfTbsp.valueInTsp;
+  // }
   else if (numTbsp > 0) {
     measurementStr += tablespoon.abbr + ' ';
   }
@@ -141,8 +141,9 @@ function getMeasurement(valueInTsp) {
     measurementStr += teaspoon.abbr + ' ';
   }
 
+  return measurementStr;
 
-  console.log(`You have ${ measurementStr }of your ingredient.`);
+  //console.log(`You have ${ measurementStr }of your ingredient.`);
 }
 
 // getMeasurement(48);   // 1 c
