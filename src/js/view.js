@@ -89,6 +89,45 @@ export function loadCalculator(ingredients) {
         <span id="base-grams">Grams</span>
       </div>
     </div>
+
+    <form id="conversion-selector">
+      <div class="calc-row">
+        <label for="amount1" class="muted">Amount</label>
+        <label for="metric1" class="muted">From</label>
+        <label for="metric2" class="muted">To</label>
+      </div>
+      <div class="calc-row">
+        
+        <input type="number" name="amount1" id="amount1" placeholder="Enter amount" class="number-input"></input>
+
+        <select name="metric1" id="metric1">
+          <optgroup label="Volume">
+            <option value="tsp">tsp</option>
+            <option value="tbsp">tbsp</option>
+            <option value="c">c</option>
+          </optgroup>
+          <optgroup label="Weight">
+            <option value="g" selected>g</option>
+            <option value="oz">oz</option>
+          </optgroup>
+        </select>
+
+        <select name="metric2" id="metric2">
+          <optgroup label="Volume">
+            <option value="tsp" selected>tsp, etc.</option>
+          </optgroup>
+          <optgroup label="Weight">
+            <option value="g">g</option>
+            <option value="oz">oz</option>
+          </optgroup>
+        </select>
+      </div>
+    </form>
+
+    <div>
+      <span class="muted">Result</span>
+      <span id="result"></span>
+    </div>
   `;
 
   ingredientCalc.innerHTML = calcStr;
@@ -113,4 +152,11 @@ export function updateIngredient(ingredientInfo) {
 
   baseOunces.innerHTML = ingredientInfo.ounces + ' oz';
   baseGrams.innerHTML = ingredientInfo.grams + ' g';
+
+  updateCalculator(baseVolume, baseGrams, baseOunces);
+}
+
+
+function updateCalculator(baseVolume, baseGrams, baseOunces) {
+
 }

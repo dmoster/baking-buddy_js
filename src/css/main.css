@@ -47,6 +47,14 @@ main {
 
 #action-zone {
   height: 45%;
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 #alpha-search {
@@ -63,10 +71,6 @@ main {
   line-height: 1em;
 }
 
-#ingredient-calc form, #basic-conversions {
-  margin: 20px 0;
-}
-
 #basic-conversions {
   
 }
@@ -74,6 +78,20 @@ main {
 #basic-conversions div {
   display: grid;
   grid-template-columns: 33.33% 33.33% 33.33%;
+}
+
+.calc-row {
+  display: grid;
+  grid-template-columns: 50% 25% 25%;
+}
+
+.calc-row input {
+  text-align: center;
+}
+
+.calc-row select {
+  font-size: 1em;
+  margin-left: 10px;
 }
 
 #control-bar {
@@ -93,7 +111,39 @@ input, select {
   min-width: 67%;
 }
 
+.number-input {
+  border: 2px solid transparent;
+  border-bottom: 2px solid dodgerblue;
+  padding: 5px;
+  font-size: 1.7em;
+
+}
+
 .muted {
   font-size: 0.7em;
   color: #777;
+}
+
+#ingredient {
+  padding: 5px;
+  margin-top: 20px;
+}
+
+#ingredient-calc {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+#result {
+  display: block;
+  font-size: 1.7em;
+  border: 2px solid transparent;
+  border-bottom: 2px solid mediumseagreen;
+  padding: 5px;
+  text-align: center;
+  height: 50px;
+  width: 66%;
+  margin: auto;
 }
