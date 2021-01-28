@@ -1,16 +1,16 @@
-# Baking Buddy
-*Note: This project is still in active development.*
+# baking_buddy
 
-## Introduction
-The purpose of this application is to allow users to convert cooking and baking ingredients between volume- and weight-based units of measurement.
+A new Flutter project.
 
-## What Works
-- Alphabet-based ingredient search
-- Display of basic conversions for included ingredients
-- Display of conversion calculator
+## Getting Started
 
-## To Do
-- Complete measurement conversion function(s)
-- Tie functions to conversion calculator UI
-- Implement text-based ingredient search
-- Implement local storage and display of recent calculations
+This project is a starting point for a Flutter application.
+
+A few resources to get you started if this is your first Flutter project:
+
+- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
+- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+
+For help getting started with Flutter, view our
+[online documentation](https://flutter.dev/docs), which offers tutorials,
+samples, guidance on mobile development, and a full API reference.

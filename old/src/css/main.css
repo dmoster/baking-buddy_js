@@ -1,0 +1,149 @@
+* {
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+}
+
+html, body {
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+main {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+#status-bar, #info-zone, #action-zone {
+  text-align: center;
+}
+
+#status-bar {
+  display: flex;
+  justify-content: space-between;
+}
+
+#info-zone {
+  height: 233px;
+}
+
+#recents {
+  height: 212px;
+  overflow-y: scroll;
+}
+
+#recents ul {
+  padding: 0;
+  list-style: none;
+}
+
+#recents li {
+  font-size: 1.7em;
+}
+
+#action-zone {
+  height: 45%;
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+#alpha-search {
+
+}
+
+#alpha-search button {
+  font-size: 3em;
+  text-decoration: none;
+  color: inherit;
+  padding: 5px;
+  background-color: transparent;
+  border: none;
+  line-height: 1em;
+}
+
+#basic-conversions {
+  
+}
+
+#basic-conversions div {
+  display: grid;
+  grid-template-columns: 33.33% 33.33% 33.33%;
+}
+
+.calc-row {
+  display: grid;
+  grid-template-columns: 50% 25% 25%;
+}
+
+.calc-row input {
+  text-align: center;
+}
+
+.calc-row select {
+  font-size: 1em;
+  margin-left: 10px;
+}
+
+#control-bar {
+  display: flex;
+  justify-content: space-between;
+}
+
+input, select {
+  font-size: 1em;
+  max-width: 100%;
+}
+
+.text-input {
+  border: 2px solid transparent;
+  border-bottom: 2px solid dodgerblue;
+  padding: 5px;
+  min-width: 67%;
+}
+
+.number-input {
+  border: 2px solid transparent;
+  border-bottom: 2px solid dodgerblue;
+  padding: 5px;
+  font-size: 1.7em;
+
+}
+
+.muted {
+  font-size: 0.7em;
+  color: #777;
+}
+
+#ingredient {
+  padding: 5px;
+  margin-top: 20px;
+}
+
+#ingredient-calc {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+#result {
+  display: block;
+  font-size: 1.7em;
+  border: 2px solid transparent;
+  border-bottom: 2px solid mediumseagreen;
+  padding: 5px;
+  text-align: center;
+  height: 50px;
+  width: 66%;
+  margin: auto;
+}
