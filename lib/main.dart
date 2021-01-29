@@ -1,6 +1,4 @@
 import 'dart:convert';
-import 'package:baking_buddy/screens/calc/widgets/ingredient.dart';
-
 import 'package:flutter/material.dart';
 
 void main() => runApp(MaterialApp(
@@ -31,22 +29,26 @@ class _HomePageState extends State<HomePage> {
                 .loadString('data/ingredientsList.json'),
             builder: (context, snapshot) {
               var ingredientsList = jsonDecode(snapshot.data.toString());
+              List<String> ingredientNames =
+                  getIngredientNames(ingredientsList);
 
-              return ListView.builder(
-                itemBuilder: (BuildContext context, int index) {
-                  return Card(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: <Widget>[
-                        Text('Name: ' + ingredientsList[index]['name']),
-                        Text('Volume: ' + ingredientsList[index]['volume']),
-                        Text('Ounces: ' + ingredientsList[index]['ounces']),
-                        Text('Grams: ' + ingredientsList[index]['grams']),
-                      ],
-                    ),
-                  );
+              String dropdownValue = 'All-Purpose Flour';
+              String newValue = '';
+
+              return DropdownButton<String>(
+                value: dropdownValue,
+                onChanged: (newValue) {
+                  setState(() {
+                    dropdownValue = newValue;
+                  });
                 },
-                itemCount: ingredientsList == null ? 0 : ingredientsList.length,
+                items: ingredientNames
+                    .map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value, style: TextStyle(fontSize: 14)),
+                  );
+                }).toList(),
               );
             },
           ),
@@ -54,4 +56,14 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+}
+
+List<String> getIngredientNames(ingredientsList) {
+  var ingredientNames = List<String>();
+
+  for (var item in ingredientsList) {
+    ingredientNames.add(item['name']);
+  }
+
+  return ingredientNames;
 }
