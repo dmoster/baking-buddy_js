@@ -43,7 +43,7 @@ final Measurement thirdCup = Measurement('1/3', 'cup', 'c', 16);
 final Measurement quarterCup = Measurement('1/4', 'cup', 'c', 12);
 final Measurement eighthCup = Measurement('1/8', 'cup', 'c', 6);
 
-String getMeasurement(valueInTsp) {
+String getVolumeStr(valueInTsp) {
   String measurementStr = '';
   int numCups = 0;
   int numTbsp = 0;
@@ -129,10 +129,10 @@ String getMeasurement(valueInTsp) {
 }
 
 void main() {
-  print(getMeasurement(48)); // 1 c
-  print(getMeasurement(33.5)); // 2/3 c 1 1/2 tsp
-  print(getMeasurement(60)); // 1 1/4 c
-  print(getMeasurement(3)); // 1 tbsp
-  print(getMeasurement(120)); // 2 1/2 c
-  print(getMeasurement(52)); // 1 c 1 tbsp 1 tsp
+  print(getVolumeStr(48)); // 1 c
+  print(getVolumeStr(33.5)); // 2/3 c 1 1/2 tsp
+  print(getVolumeStr(60)); // 1 1/4 c
+  print(getVolumeStr(3)); // 1 tbsp
+  print(getVolumeStr(120)); // 2 1/2 c
+  print(getVolumeStr(52)); // 1 c 1 tbsp 1 tsp
 }
