@@ -15,8 +15,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  String valueChosen;
-  List data;
+  String ingredientChosen;
+  String measurementChosen;
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -28,47 +29,127 @@ class _HomePageState extends State<HomePage> {
         title: Text('Baking Buddy'),
       ),
       body: Container(
-        child: Center(
-          child: FutureBuilder(
-            future: DefaultAssetBundle.of(context)
-                .loadString('data/ingredientsList.json'),
-            builder: (context, snapshot) {
-              var ingredientsList = jsonDecode(snapshot.data.toString());
-              IngredientsList ingredients =
-                  IngredientsList.fromList(ingredientsList);
+        child: FutureBuilder(
+          future: DefaultAssetBundle.of(context)
+              .loadString('data/ingredientsList.json'),
+          builder: (context, snapshot) {
+            var ingredientsList = jsonDecode(snapshot.data.toString());
+            IngredientsList ingredients =
+                IngredientsList.fromList(ingredientsList);
 
-              return Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Container(
-                  padding: EdgeInsets.only(left: 16, right: 16),
-                  decoration: BoxDecoration(
-                      border: Border.all(color: Colors.grey, width: 1),
-                      borderRadius: BorderRadius.circular(10)),
-                  child: DropdownButton(
-                    hint: Text('Choose an ingredient'),
-                    dropdownColor: Colors.white,
-                    icon: Icon(Icons.arrow_drop_down),
-                    iconSize: 36,
-                    isExpanded: true,
-                    underline: SizedBox(),
-                    style: TextStyle(color: Colors.black, fontSize: 16),
-                    value: valueChosen,
-                    onChanged: (newValue) {
-                      setState(() {
-                        valueChosen = newValue;
-                      });
-                    },
-                    items: ingredients.names.map((valueItem) {
-                      return DropdownMenuItem(
-                        value: valueItem,
-                        child: Text(valueItem),
-                      );
-                    }).toList(),
+            List measurementTypes = [
+              'cups',
+              'tablespoons',
+              'teaspoons',
+              'ounces',
+              'grams'
+            ];
+
+            return Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Container(
+                      padding: EdgeInsets.only(left: 16, right: 16),
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.grey, width: 1),
+                          borderRadius: BorderRadius.circular(10)),
+                      child: DropdownButtonFormField(
+                        dropdownColor: Colors.white,
+                        icon: Icon(Icons.arrow_drop_down),
+                        iconSize: 36,
+                        isExpanded: true,
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          labelText: 'Ingredient',
+                        ),
+                        style: TextStyle(color: Colors.black, fontSize: 16),
+                        value: ingredientChosen,
+                        onChanged: (newValue) {
+                          setState(() {
+                            ingredientChosen = newValue;
+                          });
+                        },
+                        items: ingredients.names.map((valueItem) {
+                          return DropdownMenuItem(
+                            value: valueItem,
+                            child: Text(valueItem),
+                          );
+                        }).toList(),
+                      ),
+                    ),
                   ),
-                ),
-              );
-            },
-          ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Container(
+                            padding: EdgeInsets.only(left: 16, right: 16),
+                            decoration: BoxDecoration(
+                                border:
+                                    Border.all(color: Colors.grey, width: 1),
+                                borderRadius: BorderRadius.circular(10)),
+                            child: FormField<double>(
+                              builder: (FormFieldState<double> state) {
+                                return TextField(
+                                  keyboardType: TextInputType.number,
+                                  decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    labelText: 'Amount',
+                                  ),
+                                );
+                              },
+                              onSaved: (double initialValue) {},
+                              validator: (double val) {},
+                            ),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Container(
+                            padding: EdgeInsets.only(left: 16, right: 16),
+                            decoration: BoxDecoration(
+                                border:
+                                    Border.all(color: Colors.grey, width: 1),
+                                borderRadius: BorderRadius.circular(10)),
+                            child: DropdownButtonFormField(
+                              dropdownColor: Colors.white,
+                              icon: Icon(Icons.arrow_drop_down),
+                              iconSize: 36,
+                              isExpanded: true,
+                              decoration: InputDecoration(
+                                border: InputBorder.none,
+                                labelText: 'Measurement',
+                              ),
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 16),
+                              value: measurementChosen,
+                              onChanged: (newValue) {
+                                setState(() {
+                                  measurementChosen = newValue;
+                                });
+                              },
+                              items: measurementTypes.map((valueItem) {
+                                return DropdownMenuItem(
+                                  value: valueItem,
+                                  child: Text(valueItem),
+                                );
+                              }).toList(),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            );
+          },
         ),
       ),
     );
