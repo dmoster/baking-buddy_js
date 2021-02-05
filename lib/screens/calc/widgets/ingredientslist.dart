@@ -12,7 +12,7 @@ import 'package:flutter/cupertino.dart';
 // import { loadCalculator } from './view.js';
 
 class IngredientsList {
-  var list;
+  List<dynamic> list;
   List<String> names;
 
   IngredientsList(BuildContext context, String jsonFilename) {
