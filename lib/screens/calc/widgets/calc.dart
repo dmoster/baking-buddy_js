@@ -1,13 +1,11 @@
-import 'package:baking_buddy/screens/calc/widgets/converter.dart';
-import 'package:baking_buddy/screens/calc/widgets/ingredientslist.dart';
+import 'converter.dart';
+import 'ingredient.dart';
 
 /// Get the converted amount of
 dynamic getConvertedAmount(double valueToConvert, String fromType,
-    String toType, String ingredientName, IngredientsList ingredients) {
-  double toConversionFactor =
-      getConversionFactor(toType, ingredients, ingredientName);
-  double fromConversionFactor =
-      getConversionFactor(fromType, ingredients, ingredientName);
+    String toType, Ingredient ingredient) {
+  double toConversionFactor = getConversionFactor(toType, ingredient);
+  double fromConversionFactor = getConversionFactor(fromType, ingredient);
 
   // Calculate, convert to string, and return volume measurement
   if (toType == 'volume') {
@@ -21,14 +19,13 @@ dynamic getConvertedAmount(double valueToConvert, String fromType,
 }
 
 /// Get the conversion factor for the specified ingredient
-double getConversionFactor(String measurementType, IngredientsList ingredients,
-    String ingredientName) {
+double getConversionFactor(String measurementType, Ingredient ingredient) {
   if (measurementType == 'ounces') {
-    return ingredients.list[ingredientName]['ounces'];
+    return ingredient.ounces;
   } else if (measurementType == 'grams') {
-    return ingredients.list[ingredientName]['grams'];
+    return ingredient.grams;
   } else {
-    return ingredients.list[ingredientName]['volume'];
+    return ingredient.volume;
   }
 }
 

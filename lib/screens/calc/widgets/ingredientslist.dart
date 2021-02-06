@@ -1,5 +1,6 @@
 import 'dart:convert';
-import 'package:flutter/cupertino.dart';
+import 'ingredient.dart';
+import 'package:flutter/material.dart';
 
 /// Decode
 // Map ingredientsList = jsonDecode(jsonString);
@@ -16,13 +17,21 @@ class IngredientsList {
   List<String> names;
 
   IngredientsList(BuildContext context, String jsonFilename) {
+    this.list = List();
     this.names = List();
+
     initializeIngredientsList(context, jsonFilename);
   }
 
   IngredientsList.fromList(var list) {
-    this.list = list;
+    this.list = List();
     this.names = List();
+
+    for (var item in list) {
+      this.list.add(Ingredient(
+          item['name'], item['volume'], item['ounces'], item['grams']));
+    }
+
     initializeIngredientNames();
   }
 
@@ -37,7 +46,7 @@ class IngredientsList {
 
   void initializeIngredientNames() {
     for (var item in list) {
-      names.add(item['name']);
+      names.add(item.name);
     }
   }
 }
