@@ -14,25 +14,20 @@ import 'package:flutter/material.dart';
 
 class IngredientsList {
   List<dynamic> list;
-  List<String> names;
 
   IngredientsList(BuildContext context, String jsonFilename) {
     this.list = List();
-    this.names = List();
 
     initializeIngredientsList(context, jsonFilename);
   }
 
   IngredientsList.fromList(var list) {
     this.list = List();
-    this.names = List();
 
     for (var item in list) {
       this.list.add(Ingredient(
           item['name'], item['volume'], item['ounces'], item['grams']));
     }
-
-    initializeIngredientNames();
   }
 
   void initializeIngredientsList(
@@ -40,14 +35,10 @@ class IngredientsList {
     String jsonData =
         await DefaultAssetBundle.of(context).loadString(jsonFilename);
     list = jsonDecode(jsonData);
-
-    initializeIngredientNames();
   }
 
-  void initializeIngredientNames() {
-    for (var item in list) {
-      names.add(item.name);
-    }
+  Ingredient getIngredient(String ingredientName) {
+    return list.firstWhere((item) => item.name == ingredientName);
   }
 }
 

@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:baking_buddy/screens/calc/widgets/ingredientslist.dart';
+import 'package:baking_buddy/screens/calc/widgets/ingredientsList.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MaterialApp(
@@ -72,12 +72,12 @@ class _HomePageState extends State<HomePage> {
                             ingredientChosen = newValue;
                           });
                         },
-                        items: ingredients.names.map((valueItem) {
-                          return DropdownMenuItem(
-                            value: valueItem,
-                            child: Text(valueItem),
-                          );
-                        }).toList(),
+                        // items: ingredients.names.map((valueItem) {
+                        //   return DropdownMenuItem(
+                        //     value: valueItem,
+                        //     child: Text(valueItem),
+                        //   );
+                        // }).toList(),
                       ),
                     ),
                   ),

@@ -1,9 +1,10 @@
 import 'dart:convert';
 
+import 'package:baking_buddy/screens/calc/widgets/converter.dart';
 import 'package:flutter/material.dart';
 
 import 'calc/widgets/ingredient.dart';
-import 'calc/widgets/ingredientslist.dart';
+import 'calc/widgets/ingredientsList.dart';
 
 class Calculator extends StatefulWidget {
   @override
@@ -11,17 +12,21 @@ class Calculator extends StatefulWidget {
 }
 
 class _CalculatorState extends State<Calculator> {
-  dynamic displayText = 20;
+  double displayTextSize = 100;
+  double resultTextSize = 30;
+  bool isVisible = false;
 
+  IngredientsList ingredients;
   Ingredient ingredientChosen;
   String ingredientChosenName;
 
   // Button handler
-  Widget calcButton(String btnText, Color btnColor, Color textColor) {
+  Widget calcButton(
+      String btnText, Color btnColor, Color textColor, dynamic btnValue) {
     return Container(
       child: RaisedButton(
         onPressed: () {
-          calculate(btnText);
+          calculate(btnText, btnValue);
         },
         child: Text(
           btnText,
@@ -54,16 +59,15 @@ class _CalculatorState extends State<Calculator> {
                 child: Text('Something went wrong! Please try again later.'));
           } else {
             var ingredientsList = jsonDecode(snapshot.data.toString());
-            IngredientsList ingredients =
-                IngredientsList.fromList(ingredientsList);
+            ingredients = IngredientsList.fromList(ingredientsList);
 
             return Padding(
               padding: EdgeInsets.symmetric(horizontal: 5),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Padding(
-                    padding: const EdgeInsets.all(16.0),
+                    padding: const EdgeInsets.fromLTRB(16, 64, 16, 16),
                     child: Container(
                       padding: EdgeInsets.only(left: 16, right: 16),
                       decoration: BoxDecoration(
@@ -98,83 +102,139 @@ class _CalculatorState extends State<Calculator> {
                   // Calculator display
                   SingleChildScrollView(
                     scrollDirection: Axis.vertical,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Text(
-                            text,
-                            textAlign: TextAlign.left,
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 100,
+                    child: Container(
+                      child: Column(
+                        children: [
+                          Visibility(
+                            visible: isVisible,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: Text(
+                                    ouncesText,
+                                    textAlign: TextAlign.left,
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: resultTextSize,
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                        )
+                          Visibility(
+                            visible: isVisible,
+                            child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Padding(
+                                    padding: const EdgeInsets.all(10.0),
+                                    child: Text(
+                                      gramsText,
+                                      textAlign: TextAlign.left,
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: resultTextSize,
+                                      ),
+                                    ),
+                                  ),
+                                ]),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: Text(
+                                  calcText,
+                                  textAlign: TextAlign.left,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: displayTextSize,
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Container(
+                    child: Column(
+                      children: <Widget>[
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            calcButton('AC', Colors.grey, Colors.black, 'AC'),
+                            calcButton('+/-', Colors.grey, Colors.black, '+/-'),
+                            calcButton('%', Colors.grey, Colors.black, '%'),
+                            calcButton('tsp', Color(0xff0F4FA8), Colors.white,
+                                'teaspoons'),
+                          ],
+                        ),
+                        SizedBox(height: 10),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            calcButton('7', Colors.grey[850], Colors.white, 7),
+                            calcButton('8', Colors.grey[850], Colors.white, 8),
+                            calcButton('9', Colors.grey[850], Colors.white, 9),
+                            calcButton('T', Color(0xff0F4FA8), Colors.white,
+                                'tablespoons'),
+                          ],
+                        ),
+                        SizedBox(height: 10),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            calcButton('4', Colors.grey[850], Colors.white, 4),
+                            calcButton('5', Colors.grey[850], Colors.white, 5),
+                            calcButton('6', Colors.grey[850], Colors.white, 6),
+                            calcButton(
+                                'c', Color(0xff0F4FA8), Colors.white, 'cups'),
+                          ],
+                        ),
+                        SizedBox(height: 10),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            calcButton('1', Colors.grey[850], Colors.white, 1),
+                            calcButton('2', Colors.grey[850], Colors.white, 2),
+                            calcButton('3', Colors.grey[850], Colors.white, 3),
+                            calcButton('oz', Colors.amber[700], Colors.white,
+                                'ounces'),
+                          ],
+                        ),
+                        SizedBox(height: 10),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            RaisedButton(
+                              padding: EdgeInsets.fromLTRB(34, 20, 128, 20),
+                              onPressed: () {
+                                calculate('0', 0);
+                              },
+                              shape: StadiumBorder(),
+                              child: Text(
+                                '0',
+                                style: TextStyle(
+                                    fontSize: 35, color: Colors.white),
+                              ),
+                              color: Colors.grey[850],
+                            ),
+                            calcButton(
+                                '.', Colors.grey[850], Colors.white, '.'),
+                            calcButton(
+                                'g', Colors.amber[700], Colors.white, 'grams'),
+                          ],
+                        ),
+                        SizedBox(height: 10),
                       ],
                     ),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      calcButton('AC', Colors.grey, Colors.black),
-                      calcButton('+/-', Colors.grey, Colors.black),
-                      calcButton('%', Colors.grey, Colors.black),
-                      calcButton('tsp', Color(0xff0F4FA8), Colors.white),
-                    ],
-                  ),
-                  SizedBox(height: 10),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      calcButton('7', Colors.grey[850], Colors.white),
-                      calcButton('8', Colors.grey[850], Colors.white),
-                      calcButton('9', Colors.grey[850], Colors.white),
-                      calcButton('T', Color(0xff0F4FA8), Colors.white),
-                    ],
-                  ),
-                  SizedBox(height: 10),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      calcButton('4', Colors.grey[850], Colors.white),
-                      calcButton('5', Colors.grey[850], Colors.white),
-                      calcButton('6', Colors.grey[850], Colors.white),
-                      calcButton('c', Color(0xff0F4FA8), Colors.white),
-                    ],
-                  ),
-                  SizedBox(height: 10),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      calcButton('1', Colors.grey[850], Colors.white),
-                      calcButton('2', Colors.grey[850], Colors.white),
-                      calcButton('3', Colors.grey[850], Colors.white),
-                      calcButton('oz', Colors.amber[700], Colors.white),
-                    ],
-                  ),
-                  SizedBox(height: 10),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      RaisedButton(
-                        padding: EdgeInsets.fromLTRB(34, 20, 128, 20),
-                        onPressed: () {
-                          calculate('0');
-                        },
-                        shape: StadiumBorder(),
-                        child: Text(
-                          '0',
-                          style: TextStyle(fontSize: 35, color: Colors.white),
-                        ),
-                        color: Colors.grey[850],
-                      ),
-                      calcButton('.', Colors.grey[850], Colors.white),
-                      calcButton('g', Colors.amber[700], Colors.white),
-                    ],
-                  ),
-                  SizedBox(height: 10),
                 ],
               ),
             );
@@ -184,14 +244,31 @@ class _CalculatorState extends State<Calculator> {
     );
   }
 
-  dynamic text = '0';
+  dynamic calcText = '0';
+
+  String volumeText = '';
+  String ouncesText = '';
+  String gramsText = '';
 
   dynamic result = '';
   dynamic finalResult = '';
 
-  void calculate(btnText) {
+  void calculate(btnText, btnValue) {
+    if (result == '') {
+      displayTextSize = 100;
+      isVisible = false;
+      volumeText = '';
+      ouncesText = '';
+      gramsText = '';
+    }
+
     if (btnText == 'AC') {
-      text = '0';
+      displayTextSize = 100;
+      isVisible = false;
+      calcText = '0';
+      volumeText = '';
+      ouncesText = '';
+      gramsText = '';
       result = '';
       finalResult = '0';
     } else if (btnText == '+/-') {
@@ -203,8 +280,26 @@ class _CalculatorState extends State<Calculator> {
         btnText == 'c' ||
         btnText == 'oz' ||
         btnText == 'g') {
-      //DO ALL THE WORK HERE???
-      print('hehehe....');
+      double valueToConvert = double.parse(calcText);
+      ingredientChosen = ingredients.getIngredient(ingredientChosenName);
+
+      displayTextSize = resultTextSize;
+      isVisible = true;
+
+      volumeText = getConvertedAmount(
+          valueToConvert, btnValue, 'volume', ingredientChosen);
+      ouncesText = getConvertedAmount(
+                  valueToConvert, btnValue, 'ounces', ingredientChosen)
+              .toStringAsPrecision(3) +
+          ' oz';
+      gramsText = getConvertedAmount(
+                  valueToConvert, btnValue, 'grams', ingredientChosen)
+              .toStringAsPrecision(3) +
+          ' g';
+
+      finalResult = volumeText;
+      calcText = '0';
+      result = '';
     } else if (btnText == '.') {
       if (!result.toString().contains('.')) {
         result = result.toString() + '.';
@@ -216,7 +311,7 @@ class _CalculatorState extends State<Calculator> {
     }
 
     setState(() {
-      text = finalResult;
+      calcText = finalResult;
     });
   }
 }
