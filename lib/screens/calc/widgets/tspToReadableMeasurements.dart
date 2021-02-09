@@ -111,13 +111,13 @@ String getVolumeStr(valueInTsp) {
   measurementStr += numTsp > 0 ? numTsp.toString() + ' ' : '';
 
   if (valueInTsp > threeQuarterTsp.valueInTsp) {
-    measurementStr += threeQuarterTsp.longName() + ' ';
+    measurementStr += threeQuarterTsp.longName();
     valueInTsp -= threeQuarterTsp.valueInTsp;
   } else if (valueInTsp >= halfTsp.valueInTsp) {
-    measurementStr += halfTsp.longName() + ' ';
+    measurementStr += halfTsp.longName();
     valueInTsp -= halfTsp.valueInTsp;
   } else if (valueInTsp >= quarterTsp.valueInTsp) {
-    measurementStr += quarterTsp.longName() + ' ';
+    measurementStr += quarterTsp.longName();
     valueInTsp -= quarterTsp.valueInTsp;
   } else if (numTsp > 0) {
     measurementStr += teaspoon.abbr;

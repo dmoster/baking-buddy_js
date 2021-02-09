@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:baking_buddy/screens/calc/widgets/converter.dart';
 import 'package:flutter/material.dart';
 
+import 'calc/widgets/formatNumbers.dart';
 import 'calc/widgets/ingredient.dart';
 import 'calc/widgets/ingredientsList.dart';
 
@@ -168,9 +169,20 @@ class _CalculatorState extends State<Calculator> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: <Widget>[
-                            calcButton('AC', Colors.grey, Colors.black, 'AC'),
-                            calcButton('+/-', Colors.grey, Colors.black, '+/-'),
-                            calcButton('%', Colors.grey, Colors.black, '%'),
+                            RaisedButton(
+                              padding: EdgeInsets.fromLTRB(34, 20, 64, 20),
+                              onPressed: () {
+                                calculate('AC', 'AC');
+                              },
+                              shape: StadiumBorder(),
+                              child: Text(
+                                'Clear',
+                                style: TextStyle(
+                                    fontSize: 35, color: Colors.black),
+                              ),
+                              color: Colors.grey,
+                            ),
+                            calcButton('%', Colors.black, Colors.black, '%'),
                             calcButton('tsp', Color(0xff0F4FA8), Colors.white,
                                 'teaspoons'),
                           ],
@@ -271,10 +283,10 @@ class _CalculatorState extends State<Calculator> {
       gramsText = '';
       result = '';
       finalResult = '0';
-    } else if (btnText == '+/-') {
-      finalResult = '?';
     } else if (btnText == '%') {
-      finalResult = '?';
+      // Do nothing, as this is a spacer
+      result = result;
+      finalResult = result;
     } else if (btnText == 'tsp' ||
         btnText == 'T' ||
         btnText == 'c' ||
@@ -288,13 +300,11 @@ class _CalculatorState extends State<Calculator> {
 
       volumeText = getConvertedAmount(
           valueToConvert, btnValue, 'volume', ingredientChosen);
-      ouncesText = getConvertedAmount(
-                  valueToConvert, btnValue, 'ounces', ingredientChosen)
-              .toStringAsPrecision(3) +
+      ouncesText = formatNumber(getConvertedAmount(
+              valueToConvert, btnValue, 'ounces', ingredientChosen)) +
           ' oz';
-      gramsText = getConvertedAmount(
-                  valueToConvert, btnValue, 'grams', ingredientChosen)
-              .toStringAsPrecision(3) +
+      gramsText = formatNumber(getConvertedAmount(
+              valueToConvert, btnValue, 'grams', ingredientChosen)) +
           ' g';
 
       finalResult = volumeText;
