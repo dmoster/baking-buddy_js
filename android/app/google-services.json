@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "536223419275",
+    "project_id": "baking-buddy-cf404",
+    "storage_bucket": "baking-buddy-cf404.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:536223419275:android:146de6fc255a2b43183d8e",
+        "android_client_info": {
+          "package_name": "com.mostermind.baking_buddy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "536223419275-cef27qgpn9gfmp11npsvsmdmb8ie7l47.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mostermind.baking_buddy",
+            "certificate_hash": "16b162117aad5b678d87f093f005cc386746406d"
+          }
+        },
+        {
+          "client_id": "536223419275-c0a141f8djcs35pn4at0rfqokni2t37d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBjc52FAvXQjt2syOGhOF_gYCXZB06r9SM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "536223419275-c0a141f8djcs35pn4at0rfqokni2t37d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
